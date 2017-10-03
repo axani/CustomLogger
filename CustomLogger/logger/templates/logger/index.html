@@ -1,24 +1,45 @@
 {% extends 'logger/base.html' %}
 
+{% block menu %}
+    <ul class="menu ui_pull_right">
+            <li class="menu_item active"><a href="#" data-action="menu_add">add</a></li>
+            <li class="menu_item"><a href="#" data-action="menu_show">show</a></li>
+            <li class="menu_item"><a href="#" data-action="menu_config">config</a></li>
+    </ul>
+{% endblock %}
+
 {% block content%}
-    {% for log_button in data.log_buttons %}
-        <form action="{% url 'logger:log' %}" method="post">
+    <div id="add" class="content_container">
+        {% for log_button in data.log_buttons %}
+            <form action="{% url 'logger:log' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="log_button_id" value="{{log_button.id}}"/>
+                <input class="input_full" type="submit" value="{{log_button.name}}" />
+            </form>
+        {% endfor %}
+    </div>
+    <div id="add" class="content_container">
+        {% for log_button in data.log_buttons %}
+            <h2> {{log_button.name}}</h2>
+            <ul class="striped content_container">
+                {% for log_entry in data.log_entries reversed %}
+                    {% if log_entry.initiating_button_id == log_button.id %}
+                        <li>
+                            <span class="label_medium">{{log_entry.date|date:'Y-m-d'}}</span>
+                            <span>{{log_entry.date|date:'H:i'}}</span>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                <!-- TODO: Show something if list is empty -->
+            </ul>
+        {% endfor %}
+    </div>
+    <div id="config" class="content_container">
+        <form action="{% url 'logger:add_log_button' %}" method="post">
             {% csrf_token %}
-            <input type="hidden" name="log_button_id" value="{{log_button.id}}"/>
-            <input class="input_full" type="submit" value="{{log_button.name}}" />
+            <input type="hidden" name="token_id" value="{{token.id}}"/>
+            <input class="input_half" type="text" name="button_name" placeholder="Enter Button name" />
+            <input class="input_half" type="submit" value="Add new Button" />
         </form>
-        <ul>
-            {% for log_entry in data.log_entries %}
-                {% if log_entry.initiating_button_id == log_button.id %}
-                    <li>{{log_entry.date|date:'Y-m-d H:i:s'}}</li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    {% endfor %}
-    <form action="{% url 'logger:add_log_button' %}" method="post">
-        {% csrf_token %}
-        <input type="hidden" name="token_id" value="{{token.id}}"/>
-        <input class="input_half" type="text" name="button_name" placeholder="Enter Button name" />
-        <input class="input_half" type="submit" value="Add new Button" />
-    </form>
+    </div>
 {% endblock %}

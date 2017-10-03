@@ -13,10 +13,6 @@ def index(request):
     return render(request, 'tokenizer/index.html')
 
 def token_page(request, entered_token):
-    messages.info(request, 'apelest aliqu')
-    messages.success(request, 'Officia volori nobis eaque eatempo reperit re sequoditat es essit ipsum qui in none eum Faccum ello Oficientur, ipsus, coriani mporepe Rioritios ut etur rest, eum, is Unt as explace rorerio que volupta sit, comnisci Sapelest alique Prestrum acesento demqui consequia Veli')
-    messages.warning(request, 'ani mporepe Rioritios ut etur rest, eum, is Unt as explace rorerio que')
-    messages.error(request, 'rio que volupta sit, comnisci Sapelest alique Prestrum acesento demqui ')
     token = get_object_or_404(Token, token=entered_token)
     #return render(request, 'tokenizer/token_page.html', {'token': entered_token})
     # Use Logger App from here

@@ -20,11 +20,28 @@
 }
 
 /* HELPERS */
+
 * {
     box-sizing: border-box;
 }
 
 /* UI */
+.ui_pull_left {
+    float: left;
+}
+
+.ui_pull_right {
+    float: right;
+}
+
+.ui_pull_clear {
+    clear: both;
+    overflow: hidden;
+}
+
+.messages {
+    margin-right: 1.2rem;
+}
 
 .message {
     font-family: 'LL Grey Regular';
@@ -43,6 +60,11 @@
 }
 .error {
     background-color: #ff7600;
+}
+
+.label_medium {
+    width: 10ch;
+    display: inline-block;
 }
 
 input {
@@ -68,6 +90,11 @@ input[type=text] {
 input[type=submit] {
     background-color: #484242;
     color: white;
+    cursor: pointer;
+}
+
+input[type=submit]:hover {
+    color: #b113b1;
 }
 
 .input_full {
@@ -91,8 +118,8 @@ strong {
     font-family: 'LL Grey Medium';
 }
 
-p, form {
-    padding: 0.6em 0;
+p, form, ul {
+    padding: 0 0 0.6em 0;
 }
 
 a {
@@ -103,6 +130,52 @@ li {
     padding: 0.3em;
 }
 
+ul.striped li {
+    padding: 0.7em 0.6em 0.5em 0.6em;
+
+}
+
+ul.striped li:nth-child(odd) {
+    background-color: #383837;
+}
+
+h1, h2 {
+    font-family: 'LL Grey Medium';
+}
+
+h1 {
+    text-transform: uppercase;
+}
+
+h2 {
+    margin-bottom: 0.6em;
+}
+
+.header {
+    padding: 1.2rem 1.4rem;
+    vertical-align: top;
+}
+
 .content {
-    padding: 1.2rem;
+    padding: 0.6rem 1.2rem;
+}
+
+.content_container {
+    margin-bottom: 2.4rem;
+}
+
+.menu {
+}
+
+.menu_item {
+    display: inline-block;
+    padding: 0 0 0 0.6rem;
+}
+
+.menu_item a {
+    text-decoration: none;
+}
+
+.menu_item.active a {
+    color: white;
 }

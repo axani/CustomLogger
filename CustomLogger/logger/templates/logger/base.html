@@ -8,9 +8,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"/>
     <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 
+
 </head>
 
 <body>
+<div class="header ui_pull_clear">
+    <h1 class="ui_pull_left">Log_</h1>
+    {% block menu %}
+    {% endblock %}
+</div>
 
 {% block messages %}
     {% if messages %}
@@ -21,6 +27,7 @@
     </ul>
     {% endif %}
 {% endblock %}
+
 
 <div class="content">
     {% block content%}
