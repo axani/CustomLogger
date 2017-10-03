@@ -1,14 +1,11 @@
 {% extends 'logger/base.html' %}
 
 {% block content%}
-    <h1>Logger</h1>
-    Your unique token: {{token}}
-    <hr>
     {% for log_button in data.log_buttons %}
         <form action="{% url 'logger:log' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="log_button_id" value="{{log_button.id}}"/>
-            <input type="submit" value="{{log_button.name}}" />
+            <input class="input_full" type="submit" value="{{log_button.name}}" />
         </form>
         <ul>
             {% for log_entry in data.log_entries %}
@@ -18,11 +15,10 @@
             {% endfor %}
         </ul>
     {% endfor %}
-    <hr>
     <form action="{% url 'logger:add_log_button' %}" method="post">
         {% csrf_token %}
         <input type="hidden" name="token_id" value="{{token.id}}"/>
-        <input type="text" name="button_name" />
-        <input type="submit" value="Create New Log Button" />
+        <input class="input_half" type="text" name="button_name" placeholder="Enter Button name" />
+        <input class="input_half" type="submit" value="Add new Button" />
     </form>
 {% endblock %}

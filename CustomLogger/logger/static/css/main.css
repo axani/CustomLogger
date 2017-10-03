@@ -1,4 +1,11 @@
 @font-face {
+  font-family: 'LL Grey Light';
+  src: local('☺︎'),
+    url("fonts/GreyLLWeb-Light.woff2") format("woff2"),
+    url("fonts/GreyLLWeb-Light.woff") format("woff");
+}
+
+@font-face {
   font-family: 'LL Grey Regular';
   src: local('☺︎'),
     url("fonts/GreyLLWeb-Regular.woff2") format("woff2"),
@@ -12,6 +19,90 @@
     url("fonts/GreyLLWeb-Medium.woff") format("woff");
 }
 
-body {
+/* HELPERS */
+* {
+    box-sizing: border-box;
+}
+
+/* UI */
+
+.message {
     font-family: 'LL Grey Regular';
+    color: #484242;
+    padding: 0.6rem 1.2rem;
+}
+
+.info {
+    background-color: #b4f5ff;
+}
+.success {
+    background-color: #bcff63;
+}
+.warning {
+    background-color: #ffef35;
+}
+.error {
+    background-color: #ff7600;
+}
+
+input {
+    font-family: 'LL Grey Light';
+    font-size: 18px;
+    line-height: 1.2em;
+    background-color: transparent;
+    padding: 0.7em 0.6em 0.5em 0.6em;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    border: 0 none;
+}
+
+input:focus {
+    outline: none;
+}
+
+input[type=text] {
+    background-color: white;
+    font-family: 'LL Grey Regular';
+}
+
+input[type=submit] {
+    background-color: #484242;
+    color: white;
+}
+
+.input_full {
+    width: 100%;
+}
+
+.input_half {
+    width: 49.2%;
+}
+
+
+body {
+    color: white;
+    background-color: #272727;
+    font-family: 'LL Grey Light';
+    font-size: 18px;
+    line-height: 1.2em;
+}
+
+strong {
+    font-family: 'LL Grey Medium';
+}
+
+p, form {
+    padding: 0.6em 0;
+}
+
+a {
+    color: #b113b1;
+}
+
+li {
+    padding: 0.3em;
+}
+
+.content {
+    padding: 1.2rem;
 }
