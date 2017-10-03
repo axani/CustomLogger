@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 
-from .models import LogButton
+from .models import LogButton, LogEntry
 from tokenizer.models import Token
 
 # Create your views here.
@@ -27,6 +27,8 @@ def log(request):
         log_button = LogButton.objects.get(id=log_button_id)
         if log_button:
             token = log_button.token
+            new_logentry = LogEntry(initiating_button=log_button, token=token)
+            new_logentry.save()
             messages.success(request, 'LOGGED!')
 
             return redirect('tokenizer:token_page', entered_token=token.token)

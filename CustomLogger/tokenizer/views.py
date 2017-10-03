@@ -5,7 +5,7 @@ from django.contrib import messages
 from random import choice
 from string import ascii_lowercase
 from .models import Token
-from logger.models import LogButton
+from logger.models import LogButton, LogEntry
 
 
 # Create your views here.
@@ -19,7 +19,8 @@ def token_page(request, entered_token):
     content = {
         'token': token,
         'data': {
-            'log_buttons': LogButton.objects.filter(token=token)
+            'log_buttons': LogButton.objects.filter(token=token),
+            'log_entries': LogEntry.objects.filter(token=token)
         }
     }
     return render(request, 'logger/index.html', content)

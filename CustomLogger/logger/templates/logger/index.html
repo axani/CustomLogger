@@ -10,6 +10,13 @@
             <input type="hidden" name="log_button_id" value="{{log_button.id}}"/>
             <input type="submit" value="{{log_button.name}}" />
         </form>
+        <ul>
+            {% for log_entry in data.log_entries %}
+                {% if log_entry.initiating_button_id == log_button.id %}
+                    <li>{{log_entry.date}}</li>
+                {% endif %}
+            {% endfor %}
+        </ul>
     {% endfor %}
     <hr>
     <form action="{% url 'logger:add_log_button' %}" method="post">
