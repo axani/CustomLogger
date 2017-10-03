@@ -1,6 +1,5 @@
-## Dependencies
-* I assume you work on a Mac (although everything should work just fine on other systems, with the usual fiddling.) and have Python with Virtualenv installed.
-* Git
+# Log_
+A django app to create custom time logs. 
 
-## How to
-* Run ". start_project.sh" in your terminal and follow the script. This downloads all dependencies and creates, and activates a virtualenv with Django for you.
+## No Login needed
+Instead of having user accounts, a user can create a custom token url. As long as the user keeps this token secret, nobody is able to see his logs.
