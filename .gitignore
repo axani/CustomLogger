@@ -1,3 +1,4 @@
 env
 libs
 db.sqlite3
+CustomLogger/logger/static/css/fonts/
