@@ -29,7 +29,7 @@ def log(request):
             token = log_button.token
             new_logentry = LogEntry(initiating_button=log_button, token=token)
             new_logentry.save()
-            messages.success(request, 'LOGGED!')
+            messages.success(request, 'Saved new Log for %s!' % (log_button.name))
 
             return redirect('tokenizer:token_page', entered_token=token.token)
     return redirect('tokenizer:index')
