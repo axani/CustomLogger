@@ -16,6 +16,8 @@
                 <input type="hidden" name="log_button_id" value="{{log_button.id}}"/>
                 <input class="input_full" type="submit" value="{{log_button.name}}" />
             </form>
+        {% empty %}
+            <p>Go to <a class="menu_link" href="#config">config</a> to create your first log button.</p>
         {% endfor %}
     </div>
     <div id="show" class="menu_target content_container">

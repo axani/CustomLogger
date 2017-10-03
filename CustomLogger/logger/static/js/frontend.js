@@ -4,7 +4,8 @@ $(function() {
         var $this_item = $(this);
         var target_id = $(this).attr('href');
         $('.menu_target, .menu_item').removeClass('active');
-        $(this).parent('.menu_item').addClass('active');
+        console.log($('[href="'+target_id+'"]'));
+        $('[href="'+target_id+'"]').parent('.menu_item').addClass('active');
         $(target_id).addClass('active');
     });
 });
