@@ -13,7 +13,7 @@
         <ul>
             {% for log_entry in data.log_entries %}
                 {% if log_entry.initiating_button_id == log_button.id %}
-                    <li>{{log_entry.date}}</li>
+                    <li>{{log_entry.date|date:'Y-m-d H:i:s'}}</li>
                 {% endif %}
             {% endfor %}
         </ul>
