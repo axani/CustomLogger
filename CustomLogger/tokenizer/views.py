@@ -5,9 +5,8 @@ from django.contrib import messages
 from random import choice
 from string import ascii_lowercase
 from .models import Token
+from logger.models import LogButton
 
-import logger.views
-import logger.urls
 
 # Create your views here.
 def index(request):
@@ -17,7 +16,13 @@ def token_page(request, entered_token):
     token = get_object_or_404(Token, token=entered_token)
     #return render(request, 'tokenizer/token_page.html', {'token': entered_token})
     # Use Logger App from here
-    return render(request, 'logger/index.html', {'token': entered_token})
+    content = {
+        'token': token,
+        'data': {
+            'log_buttons': LogButton.objects.filter(token=token)
+        }
+    }
+    return render(request, 'logger/index.html', content)
 
 def create_token(request):
     def getRandomString():
