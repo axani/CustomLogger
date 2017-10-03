@@ -1,3 +1,4 @@
+from django.core.urlresolvers import reverse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, Http404
 from django.contrib import messages
@@ -5,13 +6,18 @@ from random import choice
 from string import ascii_lowercase
 from .models import Token
 
+import logger.views
+import logger.urls
+
 # Create your views here.
 def index(request):
     return render(request, 'tokenizer/index.html')
 
 def token_page(request, entered_token):
     token = get_object_or_404(Token, token=entered_token)
-    return render(request, 'tokenizer/token_page.html', {'token': entered_token})
+    #return render(request, 'tokenizer/token_page.html', {'token': entered_token})
+    # Use Logger App from here
+    return render(request, 'logger/index.html', {'token': entered_token})
 
 def create_token(request):
     def getRandomString():
