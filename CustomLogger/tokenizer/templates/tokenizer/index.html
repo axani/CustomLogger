@@ -1,1 +1,6 @@
-<button>Create Unique Token</button>
+{% if error_message %}<p><strong>Error:</strong> {{ error_message }}</p>{% endif %}
+
+<form action="{% url 'tokenizer:create' %}" method="post">
+{% csrf_token %}
+<input type="submit" value="Create token" />
+</form>
