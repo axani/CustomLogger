@@ -1,0 +1,17 @@
+@font-face {
+  font-family: 'LL Grey Regular';
+  src: local('☺︎'),
+    url("fonts/GreyLLWeb-Regular.woff2") format("woff2"),
+    url("fonts/GreyLLWeb-Regular.woff") format("woff");
+}
+
+@font-face {
+  font-family: 'LL Grey Medium';
+  src: local('☺︎'),
+    url("fonts/GreyLLWeb-Medium.woff2") format("woff2"),
+    url("fonts/GreyLLWeb-Medium.woff") format("woff");
+}
+
+body {
+    font-family: 'LL Grey Regular';
+}

@@ -1,11 +1,18 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Tokenizer</title>
+    <title>Logger</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"/>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}"/>
 </head>
 
 <body>
+    <p>
+        Officia volori nobis eaque eatempo reperit re sequoditat es essit ipsum qui in none eum Faccum ello Oficientur, ipsus, coriani mporepe Rioritios ut etur rest, eum, is Unt as explace rorerio que volupta sit, comnisci Sapelest alique Prestrum acesento demqui consequia Veliquia Dolorum illupta ventic. Ello oficientur, ipsus, Coriani mporepe rioritios ut etur rest, eum, is unt as explace rorerio Que volupta sit.<br>
+        Eelest alique Prestrum acesento demqui consequia Veliquia Dolorum illupta ventic. Ello oficientur, ipsus, Coriani mporepe rioritios ut etur rest, eum, is unt as explace rorerio Que volupta sit.
+    </p>
 {% block messages %}
     {% if messages %}
     <ul class="messages">
