@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.http import HttpResponse, Http404
-from .models import Token
+from django.contrib import messages
 from random import choice
 from string import ascii_lowercase
+from .models import Token
 
 # Create your views here.
 def index(request):
@@ -22,4 +23,5 @@ def create_token(request):
         generated_token = getRandomString()
     new_token = Token(token=generated_token)
     new_token.save()
+    messages.success(request, 'Unique token page created.')
     return redirect('tokenizer:token_page', entered_token=new_token)
