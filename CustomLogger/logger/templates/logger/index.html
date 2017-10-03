@@ -2,14 +2,14 @@
 
 {% block menu %}
     <ul class="menu ui_pull_right">
-            <li class="menu_item active"><a href="#" data-action="menu_add">add</a></li>
-            <li class="menu_item"><a href="#" data-action="menu_show">show</a></li>
-            <li class="menu_item"><a href="#" data-action="menu_config">config</a></li>
+            <li class="menu_item active"><a class="menu_link" href="#add" data-action="menu_add">add</a></li>
+            <li class="menu_item"><a class="menu_link" href="#show" data-action="menu_show">show</a></li>
+            <li class="menu_item"><a class="menu_link" href="#config" data-action="menu_config">config</a></li>
     </ul>
 {% endblock %}
 
 {% block content%}
-    <div id="add" class="content_container">
+    <div id="add" class="menu_target content_container active">
         {% for log_button in data.log_buttons %}
             <form action="{% url 'logger:log' %}" method="post">
                 {% csrf_token %}
@@ -18,7 +18,7 @@
             </form>
         {% endfor %}
     </div>
-    <div id="add" class="content_container">
+    <div id="show" class="menu_target content_container">
         {% for log_button in data.log_buttons %}
             <h2> {{log_button.name}}</h2>
             <ul class="striped content_container">
@@ -34,7 +34,7 @@
             </ul>
         {% endfor %}
     </div>
-    <div id="config" class="content_container">
+    <div id="config" class="menu_target content_container">
         <form action="{% url 'logger:add_log_button' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="token_id" value="{{token.id}}"/>

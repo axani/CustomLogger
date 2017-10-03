@@ -179,3 +179,7 @@ h2 {
 .menu_item.active a {
     color: white;
 }
+
+.menu_target:not(.active) {
+    display: none;
+}
