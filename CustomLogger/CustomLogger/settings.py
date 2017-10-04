@@ -28,7 +28,7 @@ SECRET_KEY = ')^)9d6f12x3_hmk(z_)-$zxi9-12b*(9aw7)42p4m_@@5szwbt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['customlogger.pythonanywhere.com']
 
 
 # Application definition
