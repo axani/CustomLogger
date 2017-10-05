@@ -29,9 +29,11 @@
 
 <body>
 <div class="header ui_pull_clear">
-    <h1 class="ui_pull_left">
-        <a href="/" class="logo">Log_</a>
-    </h1>
+    {%block logo %}
+        <h1 class="ui_pull_left">
+            <a href="/" class="logo">Log_</a>
+        </h1>
+    {% endblock %}
     {% block menu %}
     {% endblock %}
 </div>
