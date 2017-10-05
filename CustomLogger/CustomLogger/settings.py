@@ -30,7 +30,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'customlogger.pythonanywhere.com',
-    '192.168.178.34'
+    '192.168.178.34',
+    '127.0.0.1'
     ]
 
 

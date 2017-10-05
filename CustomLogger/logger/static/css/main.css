@@ -84,6 +84,8 @@ input {
     overflow-x: hidden;
     text-overflow: ellipsis;
     border: 0 none;
+    border-radius: 0;
+    -webkit-appearance: none;
 }
 
 input:focus {
@@ -157,6 +159,10 @@ h1 {
 
 h2 {
     margin-bottom: 0.6em;
+}
+
+section {
+    margin-bottom: 1.2rem;
 }
 
 .logo {
