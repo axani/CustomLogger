@@ -19,6 +19,12 @@
     url("fonts/GreyLLWeb-Medium.woff") format("woff");
 }
 
+@keyframes slide_in {
+    from { margin-left: -100%; }
+    to   { margin-left: 0; }
+}
+
+
 /* HELPERS */
 
 * {
@@ -41,6 +47,8 @@
 
 .messages {
     margin-right: 1.2rem;
+    animation: slide_in 0.8s;
+    display: inline-block;
 }
 
 .message {
