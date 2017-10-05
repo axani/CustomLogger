@@ -6,6 +6,10 @@ from tokenizer.models import Token
 
 # Create your views here.
 
+def home(request, token):
+    messages.info(request, 'Please save this token, to get to your logs: %s' % token)
+    return redirect('tokenizer:index')
+
 def add_log_button(request):
     if request.method == "POST":
         token_id = request.POST['token_id']

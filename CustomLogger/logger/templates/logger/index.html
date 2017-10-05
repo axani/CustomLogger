@@ -1,5 +1,11 @@
 {% extends 'logger/base.html' %}
 
+{%block logo %}
+    <h1 class="ui_pull_left">
+        <a href="{% url 'logger:home' token %}" class="logo">Log_</a>
+    </h1>
+{% endblock %}
+
 {% block menu %}
     <ul class="menu ui_pull_right">
             <li class="menu_item active"><a class="menu_link" href="#add" data-action="menu_add">add</a></li>

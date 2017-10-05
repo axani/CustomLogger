@@ -10,6 +10,7 @@ from logger.models import LogButton, LogEntry
 
 # Create your views here.
 def index(request):
+    messages.success(request, 'Hello!')
     return render(request, 'tokenizer/index.html')
 
 def token_page(request, entered_token):
