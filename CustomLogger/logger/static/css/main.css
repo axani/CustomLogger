@@ -151,6 +151,12 @@ h2 {
     margin-bottom: 0.6em;
 }
 
+.logo {
+    color: white;
+    text-decoration: none;
+    /*letter-spacing: 0.08em;*/
+}
+
 .header {
     padding: 1.2rem 1.4rem;
     vertical-align: top;
