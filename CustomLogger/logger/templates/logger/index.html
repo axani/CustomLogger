@@ -15,7 +15,8 @@
 {% endblock %}
 
 {% block content%}
-    <div id="add" class="menu_target content_container active">
+    <div id="add" class="mq_medium_half menu_target content_container active">
+        <h2>Add</h2>
         {% for log_button in data.log_buttons %}
             <form action="{% url 'logger:log' %}" method="post">
                 {% csrf_token %}
@@ -26,23 +27,27 @@
             <p>Go to <a class="menu_link" href="#config">config</a> to create your first log button.</p>
         {% endfor %}
     </div>
-    <div id="show" class="menu_target content_container">
+    <div id="show" class="mq_medium_half menu_target content_container">
+        <h2>Logs</h2>
         {% for log_button in data.log_buttons %}
-            <h2> {{log_button.name}}</h2>
-            <ul class="striped content_container">
-                {% for log_entry in data.log_entries reversed %}
-                    {% if log_entry.initiating_button_id == log_button.id %}
-                        <li>
-                            <span class="label_medium">{{log_entry.date|date:'Y-m-d'}}</span>
-                            <span>{{log_entry.date|date:'H:i'}}</span>
-                        </li>
-                    {% endif %}
-                {% endfor %}
-                <!-- TODO: Show something if list is empty -->
-            </ul>
+            <h3> {{log_button.name}}</h3>
+            <section>
+                <ul class="striped">
+                    {% for log_entry in data.log_entries reversed %}
+                        {% if log_entry.initiating_button_id == log_button.id %}
+                            <li>
+                                <span class="label_medium">{{log_entry.date|date:'Y-m-d'}}</span>
+                                <span>{{log_entry.date|date:'H:i'}}</span>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- TODO: Show something if list is empty -->
+                </ul>
+            </section>
         {% endfor %}
     </div>
     <div id="config" class="menu_target content_container">
+        <h2>Config</h2>
         <form action="{% url 'logger:add_log_button' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="token_id" value="{{token.id}}"/>

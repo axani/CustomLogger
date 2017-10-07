@@ -4,13 +4,15 @@
 
 
 {% block content%}
-    <section>
-        <p>
-            Create your own custom time logger. To start, create your new custom token. No Login needed.
-        </p>
-    </section>
-    <form action="{% url 'tokenizer:create' %}" method="post">
-        {% csrf_token %}
-        <input class="input_full" type="submit" value="Create token" />
-    </form>
+    <div class="content_container">
+        <section>
+            <p>
+                Create your own custom time logger. To start, create your new custom token. No Login needed.
+            </p>
+        </section>
+        <form action="{% url 'tokenizer:create' %}" method="post">
+            {% csrf_token %}
+            <input class="input_full" type="submit" value="Create token" />
+        </form>
+    </div>
 {% endblock %}
