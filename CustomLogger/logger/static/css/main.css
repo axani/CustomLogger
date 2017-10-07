@@ -19,7 +19,7 @@
     url("fonts/GreyLLWeb-Medium.woff") format("woff");
 }
 
-@keyframes slide_in {
+@keyframes slide_in_margin {
     from { margin-left: -100%; }
     to   { margin-left: 0; }
 }
@@ -31,7 +31,15 @@
     box-sizing: border-box;
 }
 
+.std_margin_top {
+    margin-top: 1.2rem;
+}
+
 /* UI */
+.ui_link {
+    cursor: pointer;
+}
+
 .ui_pull_left {
     float: left;
 }
@@ -47,7 +55,7 @@
 
 .messages {
     margin-right: 1.2rem;
-    animation: slide_in 0.8s;
+    animation: slide_in_margin 0.8s;
     display: inline-block;
 }
 
@@ -55,6 +63,11 @@
     font-family: 'LL Grey Regular';
     color: #484242;
     padding: 0.6rem 1.2rem;
+}
+
+.ui_button {
+    color: #484242;
+    cursor: pointer;
 }
 
 .info {
@@ -99,7 +112,13 @@ input[type=datetime-local]
     font-family: 'LL Grey Regular';
 }
 
-input[type=submit] {
+input[type=datetime-local] {
+    /* Size fix */
+    padding-top: 0.5em;
+    padding-bottom: 0.4em;
+}
+
+input[type=submit]:not(.ui_button) {
     background-color: #484242;
     color: white;
     cursor: pointer;
@@ -211,6 +230,16 @@ section {
     display: none;
 }
 
+.log_item_edit {
+    max-height: 0;
+    overflow-y: hidden;
+}
+
+.log_item_container.show_edit .log_item_edit{
+    max-height: 999px;
+    transition: max-height 0.8s;
+}
+
 @media all and (min-width: 40em) {
 
     h2 {
@@ -232,7 +261,7 @@ section {
     }
 }
 
-@media all and (min-width: 60em) {
+@media all and (min-width: 64em) {
     .mq_medium_half {
         width: auto;
     }

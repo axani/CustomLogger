@@ -8,4 +8,8 @@ $(function() {
         $('[href="'+target_id+'"]').parent('.menu_item').addClass('active');
         $(target_id).addClass('active');
     });
+
+    $('[data-action="js_toggle_log_item_edit"]').on('click', function() {
+        $(this).parent('.log_item_container').toggleClass('show_edit');
+    });
 });

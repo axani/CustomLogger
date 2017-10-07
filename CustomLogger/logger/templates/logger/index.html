@@ -36,26 +36,24 @@
                 <ul class="striped">
                     {% for log_entry in data.log_entries reversed %}
                         {% if log_entry.initiating_button_id == log_button.id %}
-                            <li>
-                                <div class="log_item_display">
+                            <li class="log_item_container">
+                                <div class="log_item_display ui_link" data-action="js_toggle_log_item_edit">
                                     <span class="label_medium">{{log_entry.date|date:'Y-m-d'}}</span>
                                     <span>{{log_entry.date|date:'H:i'}}</span>
                                 </div>
                                 <div class="log_item_edit">
-                                    <span class="label_medium">{{log_entry.date|date:'Y-m-d'}}</span>
-                                    <span>{{log_entry.date|date:'H:i'}}</span>
+                                    <br><!-- Give a little space -->
                                     <form action="{% url 'logger:update_log' 'update' %}" method="post">
                                         {% csrf_token %}
                                         <input type="hidden" name="log_entry_id" value="{{log_entry.id}}"/>
-                                        <input id="time_{{log_entry.id}}" name="log_entry_date" value="{{log_entry.date|date:'Y-m-d'}}T{{log_entry.date|date:'H:i'}}" type="datetime-local" required="required">
-                                        <br>
-                                        <input class="input_small" type="submit" value="Update log" />
+                                        <input id="time_{{log_entry.id}}" class="input_full" name="log_entry_date" value="{{log_entry.date|date:'Y-m-d'}}T{{log_entry.date|date:'H:i'}}" type="datetime-local" required="required">
+                                        <input class="input_full" type="submit" value="Update log" />
                                     </form>
                                     <form action="{% url 'logger:update_log' 'delete' %}" method="post">
                                         {% csrf_token %}
                                         <input name="log_entry_date" value="{{log_entry.date|date:'Y-m-d'}}T{{log_entry.date|date:'H:i'}}" type="hidden" required="required">
                                         <input type="hidden" name="log_entry_id" value="{{log_entry.id}}"/>
-                                        <input class="input_small" type="submit" value="Delete log" />
+                                        <input class="input_small ui_button warning" type="submit" value="Delete log" />
                                     </form>
                                 </div>
                             </li>
