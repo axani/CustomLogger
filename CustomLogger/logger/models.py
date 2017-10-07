@@ -7,6 +7,7 @@ class LogButton(models.Model):
     token = models.ForeignKey(
         'tokenizer.Token'
     )
+    active = models.BooleanField(default=True)
 
     def __str__(self):
             return self.name
@@ -20,6 +21,7 @@ class LogEntry(models.Model):
     )
     comment = models.CharField(max_length=1000)
     date = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
             return self.name
