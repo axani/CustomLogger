@@ -8,5 +8,6 @@ urlpatterns = [
     url(r'^home/(?P<token>.*)$', views.home, name='home'),
     url(r'^add/$', views.add_log_button, name='add_log_button'),
     url(r'^log/$', views.log, name='log'),
+    url(r'^update_log/(?P<action>.*)$', views.update_log, name='update_log'),
 
 ]

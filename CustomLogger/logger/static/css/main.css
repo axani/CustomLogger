@@ -92,7 +92,9 @@ input:focus {
     outline: none;
 }
 
-input[type=text] {
+input[type=text],
+input[type=datetime-local]
+{
     background-color: white;
     font-family: 'LL Grey Regular';
 }

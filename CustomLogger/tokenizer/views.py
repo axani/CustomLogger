@@ -20,8 +20,8 @@ def token_page(request, entered_token):
     content = {
         'token': token,
         'data': {
-            'log_buttons': LogButton.objects.filter(token=token),
-            'log_entries': LogEntry.objects.filter(token=token)
+            'log_buttons': LogButton.objects.filter(token=token, active=True),
+            'log_entries': LogEntry.objects.filter(token=token, active=True)
         }
     }
     return render(request, 'logger/index.html', content)

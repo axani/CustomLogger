@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
+from django.utils.dateparse import parse_datetime
 
 from .models import LogButton, LogEntry
 from tokenizer.models import Token
@@ -35,5 +36,37 @@ def log(request):
             new_logentry.save()
             messages.success(request, 'Saved new Log for %s!' % (log_button.name))
 
+            return redirect('tokenizer:token_page', entered_token=token.token)
+    return redirect('tokenizer:index')
+
+def edit_logentry(log_id, action, new_date=None):
+    log_entry = LogEntry.objects.get(id=log_id)
+    if log_entry:
+        if action == 'update' and new_date:
+            log_entry.date = parse_datetime(new_date)
+        elif action == 'delete':
+            # Deactivate instead of deleting to give the user the option to undo
+            log_entry.active = False
+        elif action == 'deactivate':
+            log_entry.active = True
+
+        log_entry.save()
+        return log_entry
+    else:
+        return None
+
+def update_log(request, action):
+    print(action)
+    message_dict = {
+        'delete': 'Deleted entry.',
+        'update': 'Updated entry.',
+    }
+    if request.method == "POST":
+        log_entry_id = request.POST['log_entry_id']
+        date_str = request.POST['log_entry_date']
+        log_entry = edit_logentry(log_entry_id, action, new_date=date_str)
+        if log_entry:
+            token = log_entry.token
+            messages.success(request, message_dict[action])
             return redirect('tokenizer:token_page', entered_token=token.token)
     return redirect('tokenizer:index')
