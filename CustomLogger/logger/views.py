@@ -2,12 +2,20 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.utils.dateparse import parse_datetime
+from django.conf import settings
 
 from .models import LogButton, LogEntry
 from tokenizer.models import Token
 from tokenizer.views import token_page
 
+
 # Create your views here.
+
+def _getCompleteTokenURL(request, token):
+    scheme = request.scheme + '://' # http or https
+    host = request.get_host()
+    subdomain = settings.TOKEN_SUBDOMAIN
+    return scheme + '/'.join([host, subdomain, token])
 
 def _clear_session(request):
     # Don'’'t show undo link all the time
@@ -16,7 +24,9 @@ def _clear_session(request):
     return request
 
 def home(request, token):
-    messages.info(request, 'Please save this token, to get to your logs: %s' % token)
+    print( request.build_absolute_uri())
+    this_url = _getCompleteTokenURL(request, token)
+    messages.info(request, 'Please save this token, to get to your logs:<br> <a href="%s">%s</a>' % (this_url, this_url), extra_tags='safe')
     return redirect('tokenizer:index')
 
 def add(request, target_type):

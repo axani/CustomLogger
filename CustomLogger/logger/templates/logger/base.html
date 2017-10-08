@@ -43,7 +43,7 @@
     <ul class="messages">
         {% for message in messages %}
             <li class="message {{ message.tags }}">
-                <strong>{{ message.tags }}:</strong> {{ message }}
+                {% if 'safe' in message.tags %}{{ message|safe }}{% else %}{{ message }}{% endif %}
         </li>
         {% endfor %}
         {% if request.session.undo_link  %}
