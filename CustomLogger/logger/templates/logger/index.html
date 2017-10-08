@@ -18,8 +18,9 @@
     <div id="add" class="mq_medium_half menu_target content_container active">
         <h2>Add</h2>
         {% for log_button in data.log_buttons %}
-            <form action="{% url 'logger:log' %}" method="post">
+            <form action="{% url 'logger:add' 'log' %}" method="post">
                 {% csrf_token %}
+                <input type="hidden" name="token_id" value="{{token.id}}"/>
                 <input type="hidden" name="log_button_id" value="{{log_button.id}}"/>
                 <input class="input_full" type="submit" value="{{log_button.name}}" />
             </form>
@@ -66,7 +67,7 @@
     </div>
     <div id="config" class="menu_target content_container">
         <h2>Config</h2>
-        <form action="{% url 'logger:add_log_button' %}" method="post">
+        <form action="{% url 'logger:add' 'button' %}" method="post">
             {% csrf_token %}
             <input type="hidden" name="token_id" value="{{token.id}}"/>
             <input class="input_half" type="text" name="button_name" placeholder="Enter Button name" />

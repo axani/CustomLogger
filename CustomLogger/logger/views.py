@@ -19,15 +19,23 @@ def home(request, token):
     messages.info(request, 'Please save this token, to get to your logs: %s' % token)
     return redirect('tokenizer:index')
 
-def add_log_button(request):
+def add(request, target_type):
+    request = _clear_session(request)
     if request.method == "POST":
         token_id = request.POST['token_id']
-        new_button = request.POST['button_name']
         token = Token.objects.get(id=token_id)
         if token:
-            new_log_button = LogButton(name=new_button, token=token)
-            new_log_button.save()
-            messages.success(request, 'Added a new button :-)')
+            if target_type == 'button':
+                new_button = request.POST['button_name']
+                new_log_button = LogButton(name=new_button, token=token)
+                new_log_button.save()
+            if target_type == 'log':
+                log_button_id = request.POST['log_button_id']
+                log_button = LogButton.objects.get(id=log_button_id)
+                if log_button:
+                    new_logentry = LogEntry(initiating_button=log_button, token=token)
+                    new_logentry.save()
+            messages.success(request, 'Added a new %s.' % target_type)
 
             # Redirect to token page
             # Because the user should be able to copy the token out of the browser
@@ -56,19 +64,6 @@ def update(request, action, target_type, target_id):
         if action == 'delete':
             request.session['undo_link'] = reverse('logger:update', kwargs={'action': 'undo', 'target_type': target_type, 'target_id': target_id})
         return redirect('tokenizer:token_page', entered_token= token.token)
-    return redirect('tokenizer:index')
-
-def log(request):
-    if request.method == "POST":
-        log_button_id = request.POST['log_button_id']
-        log_button = LogButton.objects.get(id=log_button_id)
-        if log_button:
-            token = log_button.token
-            new_logentry = LogEntry(initiating_button=log_button, token=token)
-            new_logentry.save()
-            messages.success(request, 'Saved new Log for %s!' % (log_button.name))
-
-            return redirect('tokenizer:token_page', entered_token=token.token)
     return redirect('tokenizer:index')
 
 def _edit_logentry(log_id, action, new_date=None):

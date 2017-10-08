@@ -6,7 +6,7 @@ from . import views
 app_name = 'logger'
 urlpatterns = [
     url(r'^home/(?P<token>.*)$', views.home, name='home'),
-    url(r'^add/$', views.add_log_button, name='add_log_button'),
-    url(r'^log/$', views.log, name='log'),
+    url(r'^add/(?P<target_type>.*)$', views.add, name='add'),
+    # url(r'^log/$', views.log, name='log'),
     url(r'^update/(?P<action>.*)/(?P<target_type>.*)/(?P<target_id>.*)$', views.update, name='update'),
 ]
