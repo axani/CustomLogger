@@ -75,7 +75,7 @@ def update_log(request, action):
     if request.method == "POST":
         log_entry_id = request.POST['log_entry_id']
         date_str = request.POST['log_entry_date']
-        log_entry = edit_logentry(log_entry_id, action, new_date=date_str)
+        log_entry = _edit_logentry(log_entry_id, action, new_date=date_str)
         if log_entry:
             token = log_entry.token
             messages.success(request, message_dict[action])
