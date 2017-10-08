@@ -72,15 +72,19 @@
 
 .info {
     background-color: #b4f5ff;
+    font-family: 'LL Grey Regular';
 }
 .success {
     background-color: #bcff63;
+    font-family: 'LL Grey Regular';
 }
 .warning {
     background-color: #ffef35;
+    font-family: 'LL Grey Regular';
 }
 .error {
     background-color: #ff7600;
+    font-family: 'LL Grey Regular';
 }
 
 .label_medium {
@@ -99,6 +103,7 @@ input {
     border: 0 none;
     border-radius: 0;
     -webkit-appearance: none;
+    max-width: 24em;
 }
 
 input:focus {
@@ -130,6 +135,7 @@ input[type=submit]:hover {
 
 .input_full {
     width: 100%;
+    margin-bottom: -1px;
 }
 
 .input_half {

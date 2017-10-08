@@ -48,13 +48,13 @@
                                         {% csrf_token %}
                                         <input type="hidden" name="log_entry_id" value="{{log_entry.id}}"/>
                                         <input id="time_{{log_entry.id}}" class="input_full" name="log_entry_date" value="{{log_entry.date|date:'Y-m-d'}}T{{log_entry.date|date:'H:i'}}" type="datetime-local" required="required">
-                                        <input class="input_full" type="submit" value="Update log" />
+                                        <input class="input_full ui_button success" type="submit" value="Update log" />
                                     </form>
                                     <form action="{% url 'logger:update' 'delete' 'log' log_entry.id %}" method="post">
                                         {% csrf_token %}
                                         <input name="log_entry_date" value="{{log_entry.date|date:'Y-m-d'}}T{{log_entry.date|date:'H:i'}}" type="hidden" required="required">
                                         <input type="hidden" name="log_entry_id" value="{{log_entry.id}}"/>
-                                        <input class="input_small ui_button warning" type="submit" value="Delete log" />
+                                        <input class="input_small ui_button error" type="submit" value="Delete log" />
                                     </form>
                                 </div>
                             </li>
@@ -92,7 +92,7 @@
                                 <form action="{% url 'logger:update' 'update' 'button' log_button.id %}" method="post">
                                     {% csrf_token %}
                                     <input class="input_full" type="text" name="button_name" value="{{log_button.name}}" />
-                                    <input class="input_full" type="submit" value="Rename button" />
+                                    <input class="input_full ui_button success" type="submit" value="Rename button" />
                                 </form>
                                 <form action="{% url 'logger:update' 'delete' 'button' log_button.id %}" method="post">
                                     {% csrf_token %}
