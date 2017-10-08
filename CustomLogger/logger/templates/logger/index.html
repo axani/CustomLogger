@@ -37,12 +37,12 @@
                 <ul class="striped">
                     {% for log_entry in data.log_entries reversed %}
                         {% if log_entry.initiating_button_id == log_button.id %}
-                            <li class="log_item_container">
-                                <div class="log_item_display ui_link" data-action="js_toggle_log_item_edit">
+                            <li class="log_item_container ui_toggle_container">
+                                <div class="log_item_display ui_link" data-action="js_toggle">
                                     <span class="label_medium">{{log_entry.date|date:'Y-m-d'}}</span>
                                     <span>{{log_entry.date|date:'H:i'}}</span>
                                 </div>
-                                <div class="log_item_edit">
+                                <div class="ui_toggle_target">
                                     <br><!-- Give a little space -->
                                     <form action="{% url 'logger:update' 'update' 'log' log_entry.id %}" method="post">
                                         {% csrf_token %}
@@ -67,11 +67,22 @@
     </div>
     <div id="config" class="menu_target content_container">
         <h2>Config</h2>
-        <form action="{% url 'logger:add' 'button' %}" method="post">
-            {% csrf_token %}
-            <input type="hidden" name="token_id" value="{{token.id}}"/>
-            <input class="input_half" type="text" name="button_name" placeholder="Enter Button name" />
-            <input class="input_half" type="submit" value="Add new Button" />
-        </form>
+        <section>
+            <h3>Add log button</h3>
+            <form action="{% url 'logger:add' 'button' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="token_id" value="{{token.id}}"/>
+                <input class="input_half" type="text" name="button_name" placeholder="Enter Button name" />
+                <input class="input_half" type="submit" value="Add new Button" />
+            </form>
+        </section>
+        {% if data.log_buttons %}
+            <section>
+                <h3>Edit log buttons</h3>
+                <ul class="striped">
+
+                </ul>
+            </section>
+        {% endif %}
     </div>
 {% endblock %}

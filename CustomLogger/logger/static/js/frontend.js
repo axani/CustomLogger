@@ -9,7 +9,7 @@ $(function() {
         $(target_id).addClass('active');
     });
 
-    $('[data-action="js_toggle_log_item_edit"]').on('click', function() {
-        $(this).parent('.log_item_container').toggleClass('show_edit');
+    $('[data-action="js_toggle"]').on('click', function() {
+        $(this).parent('.ui_toggle_container').toggleClass('ui_toggle_show');
     });
 });

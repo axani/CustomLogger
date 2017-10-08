@@ -230,12 +230,12 @@ section {
     display: none;
 }
 
-.log_item_edit {
+.ui_toggle_target {
     max-height: 0;
     overflow-y: hidden;
 }
 
-.log_item_container.show_edit .log_item_edit{
+.ui_toggle_container.ui_toggle_show .ui_toggle_target{
     max-height: 999px;
     transition: max-height 0.8s;
 }
