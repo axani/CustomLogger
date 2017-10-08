@@ -34,6 +34,30 @@ def add_log_button(request):
             return redirect('tokenizer:token_page', entered_token=token.token)
     return redirect('tokenizer:index')
 
+def update(request, action, target_type, target_id):
+    request = _clear_session(request)
+
+    print(action)
+
+    message_dict = {
+        'delete': 'Deleted %s.' % target_type,
+        'update': 'Updated %s.' % target_type,
+        'undo': 'Reverted changes on %s.' % target_type,
+    }
+    if target_type == 'log':
+        if request.method == "POST":
+            date_str = request.POST['log_entry_date']
+            target = _edit_logentry(target_id, action, new_date=date_str)
+        else:
+            target = _edit_logentry(target_id, action)
+    if target:
+        token = target.token
+        messages.success(request, message_dict[action])
+        if action == 'delete':
+            request.session['undo_link'] = reverse('logger:update', kwargs={'action': 'undo', 'target_type': target_type, 'target_id': target_id})
+        return redirect('tokenizer:token_page', entered_token= token.token)
+    return redirect('tokenizer:index')
+
 def log(request):
     if request.method == "POST":
         log_button_id = request.POST['log_button_id']
@@ -55,47 +79,10 @@ def _edit_logentry(log_id, action, new_date=None):
         elif action == 'delete':
             # Deactivate instead of deleting to give the user the option to undo
             log_entry.active = False
-        elif action == 'reactivate':
+        elif action == 'undo':
             log_entry.active = True
 
         log_entry.save()
         return log_entry
     else:
         return None
-
-def update_log(request, action):
-    request = _clear_session(request)
-
-    print(action)
-    print(request.session)
-    message_dict = {
-        'delete': 'Deleted entry.',
-        'update': 'Updated entry.',
-    }
-    if request.method == "POST":
-        log_entry_id = request.POST['log_entry_id']
-        date_str = request.POST['log_entry_date']
-        log_entry = _edit_logentry(log_entry_id, action, new_date=date_str)
-        if log_entry:
-            token = log_entry.token
-            messages.success(request, message_dict[action])
-            if action == 'delete':
-                undo = {
-                    'message': 'Undo last action',
-                    'link': reverse('logger:undo_update_log', kwargs={'undo_action': action, 'log_id': log_entry_id}),
-                    'link_message': 'Undo %s.' % action
-                }
-                request.session['undo_link'] = reverse('logger:undo_update_log', kwargs={'undo_action': action, 'log_id': log_entry_id})
-                #return token_page(request, entered_token=token.token, additional_content={'undo': undo})
-            return redirect('tokenizer:token_page', entered_token= token.token)
-    return redirect('tokenizer:index')
-
-def undo_update_log(request, undo_action, log_id):
-    request = _clear_session(request)
-    if undo_action == 'delete':
-        action = 'reactivate'
-        log_entry = _edit_logentry(log_id, action)
-        if log_entry:
-            token = log_entry.token
-            messages.success(request, 'Undo successfull!')
-            return redirect('tokenizer:token_page', entered_token= token.token)
