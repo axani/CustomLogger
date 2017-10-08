@@ -58,6 +58,13 @@ def update(request, action, target_type, target_id):
             target = _edit_logentry(target_id, action, new_date=date_str)
         else:
             target = _edit_logentry(target_id, action)
+    if target_type == 'button':
+        if request.method == "POST":
+            new_button_name = request.POST['button_name']
+            target = _edit_button(target_id, action, new_name=new_button_name)
+            print(target.name)
+        else:
+            target = _edit_button(target_id, action)
     if target:
         token = target.token
         messages.success(request, message_dict[action])
@@ -79,5 +86,22 @@ def _edit_logentry(log_id, action, new_date=None):
 
         log_entry.save()
         return log_entry
+    else:
+        return None
+
+def _edit_button(button_id, action, new_name=None):
+    # TODO: Merge this with _edit_logentry
+    this_button = LogButton.objects.get(id=button_id)
+    if this_button:
+        if action == 'update' and new_name:
+            this_button.name = new_name
+        elif action == 'delete':
+            # Deactivate instead of deleting to give the user the option to undo
+            this_button.active = False
+        elif action == 'undo':
+            this_button.active = True
+
+        this_button.save()
+        return this_button
     else:
         return None

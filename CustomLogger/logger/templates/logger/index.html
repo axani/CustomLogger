@@ -80,7 +80,22 @@
             <section>
                 <h3>Edit log buttons</h3>
                 <ul class="striped">
-
+                    {% for log_button in data.log_buttons %}
+                        <li class="ui_toggle_container">
+                            <div class="ui_link" data-action="js_toggle">
+                                {{log_button.name}}
+                            </div>
+                            <div class="ui_toggle_target">
+                                <br>
+                                <form action="{% url 'logger:update' 'update' 'button' log_button.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input class="input_full" type="text" name="button_name" value="{{log_button.name}}" />
+                                    <input class="input_full" type="submit" value="Rename button" />
+                                </form>
+                                <br>
+                            </div>
+                        </li>
+                    {% endfor %}
                 </ul>
             </section>
         {% endif %}
