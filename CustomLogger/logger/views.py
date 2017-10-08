@@ -47,7 +47,7 @@ def log(request):
             return redirect('tokenizer:token_page', entered_token=token.token)
     return redirect('tokenizer:index')
 
-def edit_logentry(log_id, action, new_date=None):
+def _edit_logentry(log_id, action, new_date=None):
     log_entry = LogEntry.objects.get(id=log_id)
     if log_entry:
         if action == 'update' and new_date:
@@ -94,7 +94,7 @@ def undo_update_log(request, undo_action, log_id):
     request = _clear_session(request)
     if undo_action == 'delete':
         action = 'reactivate'
-        log_entry = edit_logentry(log_id, action)
+        log_entry = _edit_logentry(log_id, action)
         if log_entry:
             token = log_entry.token
             messages.success(request, 'Undo successfull!')
