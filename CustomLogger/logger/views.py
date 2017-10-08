@@ -54,15 +54,21 @@ def update(request, action, target_type, target_id):
     }
     if target_type == 'log':
         if request.method == "POST":
-            date_str = request.POST['log_entry_date']
-            target = _edit_logentry(target_id, action, new_date=date_str)
+            if 'log_entry_date' in request.POST:
+                date_str = request.POST['log_entry_date']
+                target = _edit_logentry(target_id, action, new_date=date_str)
+            else:
+                target = _edit_logentry(target_id, action)
         else:
             target = _edit_logentry(target_id, action)
     if target_type == 'button':
+        # TODO: Merge with target_type = 'log' part
         if request.method == "POST":
-            new_button_name = request.POST['button_name']
-            target = _edit_button(target_id, action, new_name=new_button_name)
-            print(target.name)
+            if 'button_name' in request.POST:
+                new_button_name = request.POST['button_name']
+                target = _edit_button(target_id, action, new_name=new_button_name)
+            else:
+                target = _edit_button(target_id, action)
         else:
             target = _edit_button(target_id, action)
     if target:

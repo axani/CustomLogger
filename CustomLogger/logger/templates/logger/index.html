@@ -79,6 +79,8 @@
         {% if data.log_buttons %}
             <section>
                 <h3>Edit log buttons</h3>
+                <p>Tap button name to edit or delete.</p>
+                <p>Please note that deleting a button will also delete the log entries you created with this button.</p>
                 <ul class="striped">
                     {% for log_button in data.log_buttons %}
                         <li class="ui_toggle_container">
@@ -92,7 +94,10 @@
                                     <input class="input_full" type="text" name="button_name" value="{{log_button.name}}" />
                                     <input class="input_full" type="submit" value="Rename button" />
                                 </form>
-                                <br>
+                                <form action="{% url 'logger:update' 'delete' 'button' log_button.id %}" method="post">
+                                    {% csrf_token %}
+                                    <input class="input_small ui_button error" type="submit" value="Delete button" />
+                                </form>
                             </div>
                         </li>
                     {% endfor %}
