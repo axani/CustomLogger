@@ -41,11 +41,14 @@
 {% block messages %}
     {% if messages %}
     <ul class="messages">
+        <li>{{ request.session.undo_link }}</li>
         {% for message in messages %}
-        <li class="message {{ message.tags }}"><strong>{{ message.tags }}:</strong> {{ message }}</li>
+            <li class="message {{ message.tags }}">
+                <strong>{{ message.tags }}:</strong> {{ message }}
+        </li>
         {% endfor %}
-        {% if undo %}
-            <li class="message info"><strong>info:</strong> {{ undo.message }}: <a href="{{ undo.link }}">{{ undo.link_message }}</a></li>
+        {% if request.session.undo_link  %}
+            <li class="message info"><strong>info:</strong> Not what you wanted to do? <a href="{{ request.session.undo_link }}">Undo last action!</a></li>
         {% endif %}
     </ul>
     {% endif %}

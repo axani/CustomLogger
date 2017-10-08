@@ -9,6 +9,12 @@ from tokenizer.views import token_page
 
 # Create your views here.
 
+def _clear_session(request):
+    # Don'’'t show undo link all the time
+    if 'undo_link' in request.session.keys():
+        del request.session['undo_link']
+    return request
+
 def home(request, token):
     messages.info(request, 'Please save this token, to get to your logs: %s' % token)
     return redirect('tokenizer:index')
@@ -58,7 +64,10 @@ def edit_logentry(log_id, action, new_date=None):
         return None
 
 def update_log(request, action):
+    request = _clear_session(request)
+
     print(action)
+    print(request.session)
     message_dict = {
         'delete': 'Deleted entry.',
         'update': 'Updated entry.',
@@ -76,11 +85,13 @@ def update_log(request, action):
                     'link': reverse('logger:undo_update_log', kwargs={'undo_action': action, 'log_id': log_entry_id}),
                     'link_message': 'Undo %s.' % action
                 }
-                return token_page(request, entered_token=token.token, additional_content={'undo': undo})
+                request.session['undo_link'] = reverse('logger:undo_update_log', kwargs={'undo_action': action, 'log_id': log_entry_id})
+                #return token_page(request, entered_token=token.token, additional_content={'undo': undo})
             return redirect('tokenizer:token_page', entered_token= token.token)
     return redirect('tokenizer:index')
 
 def undo_update_log(request, undo_action, log_id):
+    request = _clear_session(request)
     if undo_action == 'delete':
         action = 'reactivate'
         log_entry = edit_logentry(log_id, action)
