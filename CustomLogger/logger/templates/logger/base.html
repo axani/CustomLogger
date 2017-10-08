@@ -41,7 +41,6 @@
 {% block messages %}
     {% if messages %}
     <ul class="messages">
-        <li>{{ request.session.undo_link }}</li>
         {% for message in messages %}
             <li class="message {{ message.tags }}">
                 <strong>{{ message.tags }}:</strong> {{ message }}
