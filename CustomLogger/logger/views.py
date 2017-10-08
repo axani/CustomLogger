@@ -1,9 +1,11 @@
+from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.utils.dateparse import parse_datetime
 
 from .models import LogButton, LogEntry
 from tokenizer.models import Token
+from tokenizer.views import token_page
 
 # Create your views here.
 
@@ -47,7 +49,7 @@ def edit_logentry(log_id, action, new_date=None):
         elif action == 'delete':
             # Deactivate instead of deleting to give the user the option to undo
             log_entry.active = False
-        elif action == 'deactivate':
+        elif action == 'reactivate':
             log_entry.active = True
 
         log_entry.save()
@@ -68,5 +70,21 @@ def update_log(request, action):
         if log_entry:
             token = log_entry.token
             messages.success(request, message_dict[action])
-            return redirect('tokenizer:token_page', entered_token=token.token)
+            if action == 'delete':
+                undo = {
+                    'message': 'Undo last action',
+                    'link': reverse('logger:undo_update_log', kwargs={'undo_action': action, 'log_id': log_entry_id}),
+                    'link_message': 'Undo %s.' % action
+                }
+                return token_page(request, entered_token=token.token, additional_content={'undo': undo})
+            return redirect('tokenizer:token_page', entered_token= token.token)
     return redirect('tokenizer:index')
+
+def undo_update_log(request, undo_action, log_id):
+    if undo_action == 'delete':
+        action = 'reactivate'
+        log_entry = edit_logentry(log_id, action)
+        if log_entry:
+            token = log_entry.token
+            messages.success(request, 'Undo successfull!')
+            return redirect('tokenizer:token_page', entered_token= token.token)

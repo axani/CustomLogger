@@ -13,17 +13,16 @@ def index(request):
     # messages.success(request, 'Hello!')
     return render(request, 'tokenizer/index.html')
 
-def token_page(request, entered_token):
+def token_page(request, entered_token, additional_content={}):
     token = get_object_or_404(Token, token=entered_token)
     #return render(request, 'tokenizer/token_page.html', {'token': entered_token})
     # Use Logger App from here
-    content = {
-        'token': token,
-        'data': {
+    content = additional_content
+    content['token'] = token
+    content['data'] = {
             'log_buttons': LogButton.objects.filter(token=token, active=True),
             'log_entries': LogEntry.objects.filter(token=token, active=True)
         }
-    }
     return render(request, 'logger/index.html', content)
 
 def create_token(request):
