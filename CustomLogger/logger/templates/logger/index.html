@@ -46,14 +46,11 @@
                                     <br><!-- Give a little space -->
                                     <form action="{% url 'logger:update' 'update' 'log' log_entry.id %}" method="post">
                                         {% csrf_token %}
-                                        <input type="hidden" name="log_entry_id" value="{{log_entry.id}}"/>
                                         <input id="time_{{log_entry.id}}" class="input_full" name="log_entry_date" value="{{log_entry.date|date:'Y-m-d'}}T{{log_entry.date|date:'H:i'}}" type="datetime-local" required="required">
                                         <input class="input_full ui_button success" type="submit" value="Update log" />
                                     </form>
                                     <form action="{% url 'logger:update' 'delete' 'log' log_entry.id %}" method="post">
                                         {% csrf_token %}
-                                        <input name="log_entry_date" value="{{log_entry.date|date:'Y-m-d'}}T{{log_entry.date|date:'H:i'}}" type="hidden" required="required">
-                                        <input type="hidden" name="log_entry_id" value="{{log_entry.id}}"/>
                                         <input class="input_small ui_button error" type="submit" value="Delete log" />
                                     </form>
                                 </div>
