@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 
 # Create your models here.
 class LogButton(models.Model):
@@ -20,7 +20,7 @@ class LogEntry(models.Model):
         'tokenizer.Token'
     )
     comment = models.CharField(max_length=1000)
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField()
     active = models.BooleanField(default=True)
 
     def __str__(self):

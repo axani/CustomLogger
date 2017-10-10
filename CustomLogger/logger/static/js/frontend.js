@@ -12,4 +12,7 @@ $(function() {
     $('[data-action="js_toggle"]').on('click', function() {
         $(this).parent('.ui_toggle_container').toggleClass('ui_toggle_show');
     });
+
+    // Add timezone
+    $('#user_timezone').val(Intl.DateTimeFormat().resolvedOptions().timeZone);
 });

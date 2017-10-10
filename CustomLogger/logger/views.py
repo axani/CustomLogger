@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.utils.dateparse import parse_datetime
 from django.conf import settings
+from django.utils import timezone
 
 from .models import LogButton, LogEntry
 from tokenizer.models import Token
@@ -18,13 +19,14 @@ def _getCompleteTokenURL(request, token):
     return scheme + '/'.join([host, subdomain, token])
 
 def _clear_session(request):
-    # Don'’'t show undo link all the time
+    # Don't show undo link all the time
     if 'undo_link' in request.session.keys():
         del request.session['undo_link']
     return request
 
 def home(request, token):
     print( request.build_absolute_uri())
+
     this_url = _getCompleteTokenURL(request, token)
     messages.info(request, 'Please save this token, to get to your logs:<br> <a href="%s">%s</a>' % (this_url, this_url), extra_tags='safe')
     return redirect('tokenizer:index')
@@ -43,7 +45,11 @@ def add(request, target_type):
                 log_button_id = request.POST['log_button_id']
                 log_button = LogButton.objects.get(id=log_button_id)
                 if log_button:
-                    new_logentry = LogEntry(initiating_button=log_button, token=token)
+                    timezone.activate(token.timezone)
+                    date = timezone.localtime()
+                    print(token.timezone)
+                    print(date)
+                    new_logentry = LogEntry(initiating_button=log_button, token=token, date=date)
                     new_logentry.save()
             messages.success(request, 'Added a new %s.' % target_type)
 

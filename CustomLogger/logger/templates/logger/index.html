@@ -1,5 +1,7 @@
 {% extends 'logger/base.html' %}
 
+{% load tz %}
+
 {%block logo %}
     <h1 class="ui_pull_left">
         <a href="{% url 'logger:home' token %}" class="logo">Log_</a>
@@ -39,8 +41,12 @@
                         {% if log_entry.initiating_button_id == log_button.id %}
                             <li class="log_item_container ui_toggle_container">
                                 <div class="log_item_display ui_link" data-action="js_toggle">
+                                    {% timezone data.user_timezone %}
                                     <span class="label_medium">{{log_entry.date|date:'Y-m-d'}}</span>
+
+                                        {{ value }}
                                     <span>{{log_entry.date|date:'H:i'}}</span>
+                                    {% endtimezone %}
                                 </div>
                                 <div class="ui_toggle_target">
                                     <br><!-- Give a little space -->
