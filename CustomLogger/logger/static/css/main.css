@@ -246,6 +246,26 @@ section {
     transition: max-height 0.8s;
 }
 
+/* Chartist overrides */
+.ct-chart {
+    background-color: #383837;
+    padding: 1.2rem 0.6rem 0 0.6rem;
+    position: relative;
+}
+
+.ct-chart line.ct-bar {
+    stroke: #b4f5ff;
+}
+
+.ct-grid.ct-vertical {
+    stroke: rgba(255, 255, 255, 0.5);
+    stroke-dasharray: none;
+}
+
+.ct-grid.ct-horizontal {
+    display: none;
+}
+
 @media all and (min-width: 40em) {
 
     h2 {

@@ -73,6 +73,31 @@ $(function() {
     }
     var chart_data = getChartData();
     $.each(Object.keys(chart_data), function(i, id) {
-        new Chartist.Bar('#chart_' + id, chart_data[id]);
+        var options = {
+            onlyInteger: true,
+            width: '100%',
+            height: '12rem',
+            showLine: false,
+            chartPadding: {
+                top: 15,
+                right: 10,
+                bottom: 5,
+                left: 10
+              },
+            axisY: {
+                offset: 10,
+                labelOffset: {
+                  x: 0,
+                  y: 5
+                }
+              },
+            axisX: {
+                labelOffset: {
+                    x: 0,
+                    y: 5
+                }
+            }
+        }
+        new Chartist.Bar('#chart_' + id, chart_data[id], options);
     })
 });
