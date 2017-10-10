@@ -54,9 +54,8 @@ def add(request, target_type):
                     print(date)
                     new_logentry = LogEntry(initiating_button=log_button, token=token, date=date)
                     new_logentry.save()
-                    d = datetime.strptime(str(date)[:15], "%Y-%m-%d %H:%M")
-                    #d = d.strftime('%m/%d/%y')
-                    messages.success(request, 'Added new log for %s: "%s"' % (log_button.name, d))
+                    nice_date = str(date)[:16]
+                    messages.success(request, 'Added new log for %s: "%s"' % (log_button.name, nice_date))
 
             # Redirect to token page
             # Because the user should be able to copy the token out of the browser
