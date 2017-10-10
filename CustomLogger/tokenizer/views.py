@@ -20,6 +20,9 @@ def token_page(request, entered_token, additional_content={}):
     token = get_object_or_404(Token, token=entered_token)
     #return render(request, 'tokenizer/token_page.html', {'token': entered_token})
     # Use Logger App from here
+    # TODO: This really has nothing to do with tokenizer anymore.
+    # Put this to logger views!
+
     content = additional_content
     content['token'] = token
     content['data'] = {

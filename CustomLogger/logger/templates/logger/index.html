@@ -36,6 +36,9 @@
         {% for log_button in data.log_buttons %}
             <h3> {{log_button.name}}</h3>
             <section>
+                <div id="chart_{{log_button.id}}" class="ct-chart ct-perfect-fourth"></div>
+            </section>
+            <section class="data_section" data-log-button="{{log_button.id}}">
                 <ul class="striped">
                     {% for log_entry in data.log_entries reversed %}
                         {% if log_entry.initiating_button_id == log_button.id %}
@@ -45,7 +48,7 @@
                                     <span class="label_medium">{{log_entry.date|date:'Y-m-d'}}</span>
 
                                         {{ value }}
-                                    <span>{{log_entry.date|date:'H:i'}}</span>
+                                    <span class="log_entry_time">{{log_entry.date|date:'H:i'}}</span>
                                     {% endtimezone %}
                                 </div>
                                 <div class="ui_toggle_target">
