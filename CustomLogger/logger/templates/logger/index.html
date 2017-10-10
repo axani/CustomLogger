@@ -45,19 +45,19 @@
                             <li class="log_item_container ui_toggle_container">
                                 <div class="log_item_display ui_link" data-action="js_toggle">
                                     {% timezone data.user_timezone %}
-                                    <span class="label_medium">{{log_entry.date|date:'Y-m-d'}}</span>
-
-                                        {{ value }}
-                                    <span class="log_entry_time">{{log_entry.date|date:'H:i'}}</span>
+                                        <span class="label_medium">{{log_entry.date|date:'Y-m-d'}}</span>
+                                        <span class="log_entry_time">{{log_entry.date|date:'H:i'}}</span>
                                     {% endtimezone %}
                                 </div>
                                 <div class="ui_toggle_target">
                                     <br><!-- Give a little space -->
-                                    <form action="{% url 'logger:update' 'update' 'log' log_entry.id %}" method="post">
-                                        {% csrf_token %}
-                                        <input id="time_{{log_entry.id}}" class="input_full" name="log_entry_date" value="{{log_entry.date|date:'Y-m-d'}}T{{log_entry.date|date:'H:i'}}" type="datetime-local" required="required">
-                                        <input class="input_full ui_button success" type="submit" value="Update log" />
-                                    </form>
+                                    {% timezone data.user_timezone %}
+                                        <form action="{% url 'logger:update' 'update' 'log' log_entry.id %}" method="post">
+                                            {% csrf_token %}
+                                            <input id="time_{{log_entry.id}}" class="input_full" name="log_entry_date" value="{{log_entry.date|date:'Y-m-d'}}T{{log_entry.date|date:'H:i'}}" type="datetime-local" required="required">
+                                            <input class="input_full ui_button success" type="submit" value="Update log" />
+                                        </form>
+                                    {% endtimezone %}
                                     <form action="{% url 'logger:update' 'delete' 'log' log_entry.id %}" method="post">
                                         {% csrf_token %}
                                         <input class="input_small ui_button error" type="submit" value="Delete log" />
