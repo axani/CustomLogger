@@ -32,11 +32,13 @@
     </div>
     <div id="show" class="mq_medium_half menu_target content_container">
         <h2>Logs</h2>
-        <p>Tap log entry to edit or delete.</p>
+        <p>Tap log entry in list to edit or delete.</p>
         {% for log_button in data.log_buttons %}
             <h3> {{log_button.name}}</h3>
             <section>
-                <div id="chart_{{log_button.id}}" class="ct-chart"></div>
+                <div id="chart_{{log_button.id}}" class="ct-chart">
+                    <p class="chart_placeholder">No log entries yet.</p>
+                </div>
             </section>
             <section class="data_section" data-log-button="{{log_button.id}}">
                 <ul class="striped">

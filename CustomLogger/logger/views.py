@@ -5,6 +5,8 @@ from django.utils.dateparse import parse_datetime
 from django.conf import settings
 from django.utils import timezone
 
+from datetime import datetime
+
 from .models import LogButton, LogEntry
 from tokenizer.models import Token
 from tokenizer.views import token_page
@@ -41,6 +43,7 @@ def add(request, target_type):
                 new_button = request.POST['button_name']
                 new_log_button = LogButton(name=new_button, token=token)
                 new_log_button.save()
+                messages.success(request, 'Added new log button: "%s"' % (new_button))
             if target_type == 'log':
                 log_button_id = request.POST['log_button_id']
                 log_button = LogButton.objects.get(id=log_button_id)
@@ -51,7 +54,9 @@ def add(request, target_type):
                     print(date)
                     new_logentry = LogEntry(initiating_button=log_button, token=token, date=date)
                     new_logentry.save()
-            messages.success(request, 'Added a new %s.' % target_type)
+                    d = datetime.strptime(str(date)[:15], "%Y-%m-%d %H:%M")
+                    #d = d.strftime('%m/%d/%y')
+                    messages.success(request, 'Added new log for %s: "%s"' % (log_button.name, d))
 
             # Redirect to token page
             # Because the user should be able to copy the token out of the browser
