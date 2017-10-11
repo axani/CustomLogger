@@ -36,7 +36,8 @@ $(function() {
             chart_data[log_button] = {
                 'labels': [],
                 'series': [],
-                'hasData': false
+                'hasData': false,
+                'highestCount': 0
             }
             console.log(log_button);
             $(this).find('.log_item_container').each(function() {
@@ -56,6 +57,9 @@ $(function() {
                     if (addToTimepart) {
                         tp['count']++;
                         chart_data[log_button]['hasData'] = true;
+                        if (tp['count'] > chart_data[log_button]['highestCount']) {
+                            chart_data[log_button]['highestCount'] = tp['count'];
+                        }
                     }
 
                 })
@@ -66,9 +70,9 @@ $(function() {
                 chart_data[log_button]['labels'].push(tp['time_str']);
                 chart_data[log_button]['series'].push(tp['count']);
             });
-            // The series must be a list in a list
-            var series_format = [chart_data[log_button]['series']];
-            chart_data[log_button]['series'] = series_format;
+            // // The series must be a list in a list
+            // var series_format = [chart_data[log_button]['series']];
+            // chart_data[log_button]['series'] = series_format;
 
         });
         return chart_data
@@ -86,7 +90,7 @@ $(function() {
             left: 10
           },
         axisY: {
-            offset: 10,
+            offset: 0,
             labelOffset: {
               x: 0,
               y: 5
@@ -99,10 +103,36 @@ $(function() {
             }
         }
     }
+    var getChart = function(chart_data) {
+        var $el = $('<div></div>').addClass('chart');
+        var label_height = '1.2rem'
+        var steps = chart_data['highestCount'];
+        var step_height = 100.0/(steps+1);
+        // X -> Series
+        var $axis_y_data = $('<div></div>').addClass('axis_y_data');
+        for(i=steps; i>=0; i--) {
+            var $row_container = '<div class="row_container" style="height: ' + step_height + '%;"><div class="row_label_outer"><div class="row_label_inner">' + i + '</div></div><div class="row_line_outer"><div class="row_line_inner"></div></div>'
+            $axis_y_data.append($row_container);
+        }
+        $el.append($axis_y_data);
+        // Y -> Labels
+        var $axis_x_data = $('<div></div>').addClass('axis_x_data');
+        var label_width = 100.0/chart_data['labels'].length;
+        $(chart_data['labels']).each(function(i, data) {
+            var this_bar_height = step_height * chart_data['series'][i];
+            var $bar_container = '<div class="bar_container" style="width: ' + label_width + '%;"><div class="bar_outer" ><div class="bar_inner" style="height: ' + this_bar_height + '%;"></div></div><div class="bar_label_outer"><div class="bar_label_inner">' + i + '</div></div></div>';
+            $axis_x_data.append($bar_container);
+        });
+        $el.append($axis_x_data);
+
+        return $el
+
+    };
     $.each(Object.keys(chart_data), function(i, id) {
         if (chart_data[id]['hasData']) {
-            new Chartist.Bar('#chart_' + id, chart_data[id], chart_options);
+            //new Chartist.Bar('#chart_' + id, chart_data[id], chart_options);
             $('#chart_' + id).find('.chart_placeholder').remove();
+            $('#chart_' + id).append(getChart(chart_data[id]))
         }
     })
 });

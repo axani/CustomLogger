@@ -247,6 +247,112 @@ section {
 }
 
 /* Chartist overrides */
+
+.chart {
+    font-size: 0.5em;
+    position: relative;
+    width: 100%;
+    height: 12rem;
+}
+
+.axis_y_data {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 1.2rem;
+    right: 0.2rem;
+}
+
+.axis_y_data .row_container {
+    position: relative;
+    margin-bottom: -1px;
+}
+
+.axis_y_data .row_label_outer {
+    position: absolute;
+    width: 1.2rem;
+    bottom: 0;
+    text-align: right;
+}
+
+.axis_y_data .row_label_inner {
+    position: absolute;
+    right: 0.6rem;
+    bottom: -1em;
+    z-index: 99;
+}
+
+
+.row_container:nth-child(1) .row_line_outer {
+    border-top: 1px solid white;
+}
+
+.axis_y_data .row_line_outer {
+    position: absolute;
+    left: 1.2rem;
+    right: 0.2rem;
+    height: 100%;
+    border-bottom: 1px solid white;
+    z-index: 99;
+}
+
+.axis_y_data .row_line_inner {
+    border-bottom: white;
+}
+
+.axis_x_data {
+    position: absolute;
+    top: 0;
+    left: 1.2rem;
+    height: 100%;
+    right: 0.2rem;
+}
+
+.axis_x_data .bar_container {
+    border: 0.2rem solid #383837; /* Makes the gaps between the bars */
+}
+
+.axis_x_data .bar_label_outer {
+    position: absolute;
+    bottom: 0;
+    height: 1.2rem;
+    width: 100%;
+    padding-top: 0.2rem
+}
+
+.axis_x_data .bar_label_inner {
+    width: 100%;
+    text-align: center;
+}
+
+.axis_x_data .bar_outer {
+    position: absolute;
+    width: 100%;
+    bottom: 1.2rem;
+    top: 0;
+}
+
+.axis_x_data .bar_inner {
+    background-color: #b4f5ff;
+    position: absolute;
+    bottom: 2px; /* visual correction */
+    width: 100%;
+    z-index: 100;
+}
+
+.bar_container {
+    vertical-align: bottom;
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+}
+
+.bar {
+    background-color: yellow;
+}
+
+
 .ct-chart {
     background-color: #383837;
     padding: 1.2rem 0.6rem 0 0.6rem;
@@ -266,7 +372,7 @@ section {
     display: none;
 }
 
-@media all and (min-width: 40em) {
+@media all and (min-width: 48em) {
 
     h2 {
         display: block;
@@ -287,7 +393,7 @@ section {
     }
 }
 
-@media all and (min-width: 64em) {
+@media all and (min-width: 72em) {
     .mq_medium_half {
         width: auto;
     }
